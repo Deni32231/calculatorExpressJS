@@ -73,8 +73,8 @@ const toDivide = (req: Request, res: Response) => {
       throw "a - не число";
     }
 
-    if (isNaN(b)) {
-      throw "b - не число";
+    if (isNaN(b) || b === 0) {
+      throw "b - не число или равен нулю";
     }
 
     const result = calculatorModel.toDivide(a, b);
@@ -125,6 +125,9 @@ const universalReq = (req: Request, res: Response) => {
         result = calculatorModel.toMultiply(a, b);
         break;
       case "/":
+        if (b === 0) {
+          throw "b равно нулю";
+        }
         result = calculatorModel.toDivide(a, b);
         break;
       default:
